@@ -1,15 +1,16 @@
 {
 	"manifestVersion": 1,
-	"id": "jungit-site-maintenance",
-	"name": "IIS Website - Maintenance mode",
-	"description": "Put an IIS website under maintenance or back online again.",
+	"id": "pmoore-site-maintenance",
+	"name": "Remote IIS Website - Maintenance mode",
+	"description": "Put a Remote IIS website under maintenance or back online again.",
 	"version": "__VERSION__",
-	"publisher": "jungeriusit",
+	"publisher": "pmoore <- jungeriusit",
 	"public":  true, 
-	"baseUri": "https://github.com/chrisism/",
+	"baseUri": "https://github.com/djengineerllc/",
 	"scopes": [],
 	"tags": [
 		"iis",
+		"remote",
 		"website",
 		"offline",
 		"online",
@@ -17,21 +18,21 @@
 	],
 	"links": {
 		"home": {
-			"uri": "https://github.com/chrisism/VSTS.SiteOffline"
+			"uri": "https://github.com/pmoore/VSTS.SiteOffline"
 		},
 		"learn": {
-			"uri": "https://github.com/chrisism/VSTS.SiteOffline"
+			"uri": "https://github.com/pmoore/VSTS.SiteOffline"
 		},
 		"support": {
-			"uri": "https://github.com/chrisism/VSTS.SiteOffline/issues"
+			"uri": "https://github.com/pmoore/VSTS.SiteOffline/issues"
 		},
 		"repository": {
-			"uri": "https://github.com/chrisism/VSTS.SiteOffline"
+			"uri": "https://github.com/pmoore/VSTS.SiteOffline"
 		}
 	},
 	"repository": {
 		"type": "git",
-		"uri": "https://github.com/chrisism/VSTS.SiteOffline"
+		"uri": "https://github.com/pmoore/VSTS.SiteOffline"
 	},
 	"branding": {
 		"color": "rgb(157, 140, 255)",
@@ -61,7 +62,7 @@
 	},
 	"contributions": [
 		{
-			"id": "jungit-site-maintenance",
+			"id": "pmoore-site-maintenance",
 			"type": "ms.vss-distributed-task.task",
 			"targets": [
 				"ms.vss-distributed-task.tasks"
