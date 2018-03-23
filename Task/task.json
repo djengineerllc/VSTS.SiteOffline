@@ -27,6 +27,30 @@
 			"helpMarkDown": "Leave empty if you want to perform this operation on the local computer. When you want to use Remote Powershell you can fill in the desired remote computer."
 		},
 		{
+			"name": "domain",
+			"type": "string",
+			"label": "Credential Domain",
+			"defaultValue": "",
+			"required": false,
+			"helpMarkDown": "Leave empty if you do not need credentials to log into remote machine."
+		},
+		{
+			"name": "user",
+			"type": "string",
+			"label": "Credential User",
+			"defaultValue": "",
+			"required": false,
+			"helpMarkDown": "Leave empty if you do not need credentials to log into remote machine."
+		},
+		{
+			"name": "pass",
+			"type": "string",
+			"label": "Credential Password",
+			"defaultValue": "",
+			"required": false,
+			"helpMarkDown": "Leave empty if you do not need credentials to log into remote machine."
+		},
+		{
 			"name": "state",
 			"type": "pickList",
 			"label": "Change to",
