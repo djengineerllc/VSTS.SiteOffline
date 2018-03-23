@@ -1,5 +1,8 @@
 param (
 	[string]$computerName,
+	[string]$domain,
+	[string]$user,
+	[string]$pass,
 	[string]$state,	
 	[string]$webRoot,
 	[string]$offlineFileName,
@@ -9,33 +12,59 @@ param (
 	[string]$delayAfter
 )
 
-Function PathExists($computerName, $path) {
+Function Has-Credentials($domain) {
+	return -not($domain -eq "")
+}
+
+Function Get-Credential($domain, $user, $pass) {
+	$Username = "$domain\$user"
+	$Password = $pass | ConvertTo-SecureString
+	$Cred = New-Object System.Management.Automation.PsCredential($Username,$Password)
+	return $Cred
+}
+
+Function PathExists($computerName, $path, $domain, $user, $pass) {
 
 	if ($computerName -eq "") {
 		return Test-Path $path
 	}
-
-	return Invoke-Command -ComputerName $computerName -ScriptBlock { Test-Path($args[0]) } -ArgumentList $path
+	if (Has-Credentials $domain) {
+		$Cred = Get-Credential $domain $user $pass
+		return Invoke-Command -ComputerName $computerName -Credential $Cred -ScriptBlock { Test-Path($args[0]) } -ArgumentList $path
+	}
+	else {
+		return Invoke-Command -ComputerName $computerName -ScriptBlock { Test-Path($args[0]) } -ArgumentList $path
+	}
 }
 
-Function MoveFile($computerName, $from, $to) {
+Function MoveFile($computerName, $from, $to, $domain, $user, $pass) {
 
 	if ($computerName -eq "") {
 		Move-Item $from $to
 		return
 	}
-	
-	Invoke-Command -ComputerName $computerName -ScriptBlock { Move-Item $args[0] $args[1] } -ArgumentList $from, $to
+	if (Has-Credentials $domain) {
+		$Cred = Get-Credential $domain $user $pass
+		Invoke-Command -ComputerName $computerName -Credential $Cred -ScriptBlock { Move-Item $args[0] $args[1] } -ArgumentList $from, $to
+	}
+	else {
+		Invoke-Command -ComputerName $computerName -ScriptBlock { Move-Item $args[0] $args[1] } -ArgumentList $from, $to
+	}
 }
 
-Function DeleteFile($computerName, $path) {
+Function DeleteFile($computerName, $path, $domain, $user, $pass) {
 
 	if ($computerName -eq "") {
 		Remove-Item $path
 		return
 	}
-
-	Invoke-Command -ComputerName $computerName -ScriptBlock { Remove-Item $args[0] } -ArgumentList $path
+	if (Has-Credentials $domain) {
+		$Cred = Get-Credential $domain $user $pass
+		Invoke-Command -ComputerName $computerName -Credential $Cred -ScriptBlock { Remove-Item $args[0] } -ArgumentList $path
+	}
+	else {
+		Invoke-Command -ComputerName $computerName -ScriptBlock { Remove-Item $args[0] } -ArgumentList $path
+	}
 }
 
 $hostName = $computerName
